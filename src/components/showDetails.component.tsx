@@ -11,9 +11,10 @@ import Dummy6 from '../assets/dummy6.jpeg'
 import Dummy7 from '../assets/dummy7.jpeg'
 import Dummy8 from '../assets/dummy8.jpeg'
 import Dummy9 from '../assets/dummy9.jpeg'
+import AirFilterRecommendation from './rag.component'
 
 const dummyProducts = [
-  { id: 1, image: Dummy1, name: "TextoDummy", price: '$00.00', description: "Descripción del dummy 1", rating: 4},
+  { id: 1, image: Dummy1, name: "Filtro de Aire STP ST8040", price: '$109.00', description: "Filtro de aire STP ST8040 con fibra sintética, posee un filtro de alta calidad para automóviles, proporciona una buena calidad del aire en el interior del vehículo, resistente a la corrosión y el desgaste, compatible con sistemas de combustible a gasolina o diesel, tiene ventajas para mantener el aire fresco y limpio en el interior del vehículo", rating: 4},
   { id: 2, image: Dummy2, name: "TextoDummy", price: '$00.00', description: "Descripción del dummy 2", rating: 5},
   { id: 3, image: Dummy3, name: "TextoDummy", price: '$00.00', description: "Descripción del dummy 3", rating: 3},
   { id: 4, image: Dummy4, name: "TextoDummy", price: '$00.00', description: "Descripción del dummy 4", rating: 2},
@@ -68,7 +69,6 @@ const StarRating = ({ rating}: { rating: number }) => {
 }
 
 // Componente de detalles del producto dummy
-
 const ShowDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>() // Obtener el parámetro del id de la URL
     const navigate = useNavigate()
@@ -90,27 +90,31 @@ const ShowDetails: React.FC = () => {
     return (
         <div className="product-details-page">
             <div className="breadcrumb">
-                <button onClick={() => navigate(-1)} className="breadcrumb-button">Inicio</button>
-                <span> {'>'} </span>
-                <h1 className="breadcrumb-text">Detalles</h1>
+              <button onClick={() => navigate(-1)} className="breadcrumb-button">Inicio</button>
+              <span> {'>'} </span>
+              <h1 className="breadcrumb-text">Detalles</h1>
             </div>
             <div className="product-details-container">
-                <img src={dummyProduct.image} alt={dummyProduct.name} className="product-detail-image" style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
-                <div className="product-detail-info">
-                    <h2 className="product-detail-name">{dummyProduct.name}</h2>
-                    <p className="product-detail-price">{dummyProduct.price}</p>
-                    <p className="product-detail-description">{dummyProduct.description}</p>
+              <img src={dummyProduct.image} alt={dummyProduct.name} className="product-detail-image" />
+            <div/>
+              <div className="product-detail-info">
+                <h2 className="product-detail-name">{dummyProduct.name}</h2>
+                <p className="product-detail-price">{dummyProduct.price}</p>
+                <p className="product-detail-description">{dummyProduct.description}</p>
 
-                    {/* Mostrar la calificación de estrellas */}
-                    <StarRating rating={dummyProduct.rating} />
+                {/* Mostrar la calificación de estrellas */}
+                <StarRating rating={dummyProduct.rating} />
 
-                    {/* Botón para agregar al carrito */}
-                    <button className="add-to-cart-button" onClick={handleAddToCart}>Agregar al carrito</button>
-                </div>
+                {/* Botón para agregar al carrito */}
+                <button className="add-to-cart-button" onClick={handleAddToCart}>Agregar al carrito</button>
+              </div>
             </div>
+            <div className="AirFilterRecommendation">
+                <AirFilterRecommendation ShowDetails={dummyProduct} /> {/* Pasar el producto como prop */}
+            </div>
+
         </div>
     )
-    
-} 
 
+}
 export default ShowDetails

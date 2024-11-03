@@ -1,6 +1,6 @@
 // src/App.tsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // npm install react-router-dom
 import './App.css';
 import Header from './components/header.component'
 import Footer from './components/footer.component'

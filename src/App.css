@@ -435,9 +435,19 @@
 }
 
 .product-details-container {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+}
+
+.product-detail-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid #ffad32;
+  border-radius: 10px;
+  padding: auto;
+  margin: auto;
 }
 
 .product-detail-info {
@@ -544,6 +554,44 @@
 }
 
 .checkout-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.AirFilterRecommendation {
+  margin-top: 20px;
+}
+
+.AirFilterRecommendation button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  border: #fffcd9 solid 1px;
+}
+
+.AirFilterRecommendation p {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #FFA500;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.AirFilterRecommendation div {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #FFA500;

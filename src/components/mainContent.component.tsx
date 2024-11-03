@@ -1,7 +1,7 @@
 // mainContent.component.tsx
 import React from 'react';
 import ProductCard from '../components/productCard.component'
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
 import { useState } from 'react';
 import IProductCard from '../interfaces/productCard.interface'
 
@@ -21,7 +21,7 @@ import Dummy9 from '../assets/dummy9.jpeg'
 
 const MainContent: React.FC = () => {
     const [page, setPage] = useState(1)
-    const location = useLocation();
+    const location = useLocation()
     const productos = [
         { id: 1, image: Dummy1, name: "TextoDummy", price: '$00.00', description: "Descripción del dummy 1" },
         { id: 2, image: Dummy2, name: "TextoDummy", price: '$00.00', description: "Descripción del dummy 2" },
@@ -58,7 +58,7 @@ const MainContent: React.FC = () => {
                 <button className="pagination-button" onClick={() => setPage((prev: number) => prev + 1)} disabled={page === 10}>Siguiente</button>
             </div>
         </main>
-    );
-};
+    )
+}
 
 export default MainContent;
