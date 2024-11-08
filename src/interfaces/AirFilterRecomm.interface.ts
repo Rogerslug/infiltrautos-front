@@ -1,9 +1,12 @@
 interface IAirFilterRecomm {
     ShowDetails: {
         name: string
-        price: string
-        description: string
-        rating: number
+        price: number // Asegúrate de que sea string
+        description?: string
+        rating?: number
+        type: string
+        material: string
+        stock: number
     }
 }
 

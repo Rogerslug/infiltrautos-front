@@ -1,11 +1,16 @@
 // productCard.interface.tsx
 interface IProductCard {
-    id?: number
+    id: number
     product?: IProductCard
     image: string
     name: string
-    price: string
+    price: number
     description?: string
+    material?: string
+    stock: number
+    type: string
+    sku?: string
+    rating?: number
     onClick?: any
 }
 

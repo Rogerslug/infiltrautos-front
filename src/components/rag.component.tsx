@@ -47,7 +47,7 @@ import IAirFilterRecomm from "../interfaces/AirFilterRecomm.interface"
 
 
 // Componente para la recomendación del filtro de aire
-const AirFilterRecommendation = ({ ShowDetails }: IAirFilterRecomm) => { // Cambiado 'showDetails' a 'product'
+const RAG = ({ ShowDetails }: any) => { // Cambiado 'showDetails' a 'product'
   const [responseMessage, setResponseMessage] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -56,7 +56,7 @@ const AirFilterRecommendation = ({ ShowDetails }: IAirFilterRecomm) => { // Camb
     setLoading(true)
     setError("")
 
-    const message = "Necesito que me des una recomendación detallada del filtro de aire para auto para el producto: " + ShowDetails.name + "con la descripción: " + ShowDetails.description + " y precio: " + ShowDetails.price
+    const message = "La siguiente información la está viendo el usuario actualmente: Nombre: " + ShowDetails.name + ", Descripción: " + ShowDetails.description + ", Precio: " + ShowDetails.price  + "mxn, Tipo: " + ShowDetails.type + ", Material: " + ShowDetails.material + " Stock: " + ShowDetails.stock
 
     const requestBody = {
       "message": message,
@@ -78,11 +78,11 @@ const AirFilterRecommendation = ({ ShowDetails }: IAirFilterRecomm) => { // Camb
       }
 
       const data: any = await response.json()
-      console.log("data", data)
+/*       console.log("data", data)
       console.log("data.data", data.data)
       console.log("data.data.data", data.data.data)
       console.log("data.data.data.choices[0].message.content", data.data.data.choices[0].message.content)
-
+ */
       if (data && data.ok) {
         const messageContent = data.data.data.choices[0].message.content
         setResponseMessage(messageContent)
@@ -101,20 +101,22 @@ const AirFilterRecommendation = ({ ShowDetails }: IAirFilterRecomm) => { // Camb
       <h2>Recomendación del Filtro de Aire</h2>
       {loading ? (
         <p>Cargando recomendación...</p>
-      ) : error ? (
-        <p style={{ color: "red" }}>{error}</p>
       ) : responseMessage ? (
-        <div>
-          <h3>Resultado:</h3>
+
+        <button onClick={getRecommendation}>
           <p>{responseMessage}</p>
+        </button>
+      ) : error ? (
+        <div>
+          <p style={{ color: "red" }}>Error al obtener la recomendación: </p>
+          <p style={{ color: "red" }}>{error}</p>
         </div>
       ) : (
         <button onClick={getRecommendation}>
-          Haga clic para obtener una recomendación del filtro de aire para {ShowDetails.name} {/* Este componente recibe el producto desde showDetails.component.tsx */}
-        </button>
+          Haga clic para obtener una recomendación del filtro de aire para {ShowDetails.name}        </button>
       )}
     </div>
   );
 }
 
-export default AirFilterRecommendation
+export default RAG
