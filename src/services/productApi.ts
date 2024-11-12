@@ -50,8 +50,8 @@ export default class ProductApi {
     async getAutoFilters(): Promise<any[]> { 
         try { 
             const response = await axios.post(`${API_URL}/querySql`, { query: "SELECT DISTINCT marca, modelo, año FROM Autos" });
-            console.log("Filtros de autos obtenidos desde la base de datos:", response.data.data);
-            return response.data.data as any[]; // Forzamos el tipo
+            console.log(`Filtros de autos obtenidos desde la base de datos: ${response.data.data as any[]}`);
+            return response.data.data as any[] // Forzamos el tipo
         } catch (error) { 
             console.log("Error al obtener los filtros de autos:", error); 
             return []; // Retornamos un array vacío en caso de error
@@ -61,15 +61,15 @@ export default class ProductApi {
         try {
             const response = await axios.post(`${API_URL}/querySql`, {
                 query: `SELECT DISTINCT modelo, año FROM Autos WHERE marca = '${marca}'`
-            });
-            console.log("Modelos y años obtenidos desde la base de datos:", response.data.data);
+            })
+            console.log("Modelos y años obtenidos desde la base de datos:", response.data.data)
             // Asumimos que response.data.data es un array de objetos con propiedades modelo y año
-            const modelos = response.data.map((item: any) => item.modelo);
-            const años = response.data.map((item: any) => item.año);
-            return { modelos, años };
+            const modelos = response.data.map((item: any) => item[0])
+            const años = response.data.map((item: any) => item[1])
+            return { modelos, años }
         } catch (error) {
-            console.log("Error al obtener los modelos y años:", error);
-            return { modelos: [], años: [] }; // Retornamos un objeto vacío en caso de error
+            console.log("Error al obtener los modelos y años:", error)
+            return { modelos: [], años: [] } // Retornamos un objeto vacío en caso de error
         }
     }
 }    

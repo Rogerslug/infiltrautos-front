@@ -103,7 +103,7 @@ const ShowDetails: React.FC = () => {
             <div className="breadcrumb">
               <button onClick={() => navigate('/')} className="breadcrumb-button">Inicio</button>
               <span> {'>'} </span>                
-              <button onClick={() => navigate(-1)} className="breadcrumb-button">Catálogo</button>
+              <button onClick={() => navigate('/catalogo')} className="breadcrumb-button">Catálogo</button>
               <span> {'>'} </span>
               <h1 className="breadcrumb-text">Detalles</h1>
             </div>
