@@ -1,38 +1,37 @@
-// src/components/cart.component.tsx
-import React, { useContext, useState } from 'react'
-import { CartContext } from '../context/CartContext'
+import React, { useContext, useState } from 'react'; 
+import { CartContext } from '../context/CartContext';
 
 const Cart: React.FC = () => {
-    const context = useContext(CartContext)
+    const context = useContext(CartContext);
     if (!context) {
-        throw new Error("Cart debe ser utilizado dentro de un CartProvider")
+        throw new Error("Cart debe ser utilizado dentro de un CartProvider");
     }
 
-    const { cart, removeFromCart } = context;
-    const total = cart.reduce((acc, product) => acc + product.price, 0)
-    const [showPaypalModal, setShowPaypalModal] = useState(false)
+    const { cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart } = context;
+    const total = cart.reduce((acc, product) => acc + product.price * (product.quantity || 1), 0);
+    const [showPaypalModal, setShowPaypalModal] = useState(false);
+    const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
     const handleCheckout = () => {
-        setShowPaypalModal(true)
-    }
+        setShowPaypalModal(true);
+    };
 
-    const createOrder = (data: any, actions: any) => {
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: total.toFixed(2),
-                },
-            }],
-        }).then((orderID: string) => {
-            return orderID
-        })
-    }
+    const handleQuantityChange = (productId: number, delta: number) => {
+        if (delta === 1) {
+            increaseQuantity(productId);
+        } else if (delta === -1) {
+            decreaseQuantity(productId);
+        }
+    };
 
-    const onApprove = (data: any, actions: any) => {
-        return actions.order.capture().then((details: any) => {
-            alert(`Transacción completada por ${details.payer.name.given_name}`);
-            setShowPaypalModal(false)
-        });
+    const onApprove = () => {
+        setShowPaypalModal(false);
+        setShowInvoiceModal(true);
+    };
+
+    const handleInvoiceClose = () => {
+        setShowInvoiceModal(false);
+        clearCart();
     };
 
     return (
@@ -47,6 +46,11 @@ const Cart: React.FC = () => {
                             <div className="cart-product-info">
                                 <p>{product.name}</p>
                                 <p>${product.price.toFixed(2)}</p>
+                                <div className="quantity-controls">
+                                    <button onClick={() => handleQuantityChange(product.id, -1)}>-</button>
+                                    <span>{product.quantity}</span>
+                                    <button onClick={() => handleQuantityChange(product.id, 1)}>+</button>
+                                </div>
                                 <button onClick={() => removeFromCart(product.id)}>Eliminar</button>
                             </div>
                         </div>
@@ -58,7 +62,7 @@ const Cart: React.FC = () => {
                 <ul>
                     {cart.map((product) => (
                         <li key={product.id}>
-                            {product.name} <span>${product.price.toFixed(2)}</span>
+                            {product.name} x {product.quantity} <span>${(product.price * (product.quantity || 1)).toFixed(2)}</span>
                         </li>
                     ))}
                 </ul>
@@ -68,7 +72,7 @@ const Cart: React.FC = () => {
                 <button className="checkout-button" onClick={handleCheckout}>Proceder a la Compra</button>
             </div>
 
-            {/* Modal de PayPal */}
+            {/* Modal de Pasarela de Pago */}
             {showPaypalModal && (
                 <div className="modal-overlay">
                     <div className="modal-dialog">
@@ -82,23 +86,64 @@ const Cart: React.FC = () => {
                             <div className="modal-body">
                                 <form onSubmit={(e) => {
                                     e.preventDefault();
-                                    // Aquí puedes manejar el envío del formulario
-                                    // Por ejemplo, podrías llamar a createOrder aquí
+                                    onApprove();
                                 }}>
+                                    {/* Formulario de pago */}
                                     <div className="form-group">
-                                        <label htmlFor="email">Email</label>
-                                        <input type="email" className="form-control" id="email" required />
+                                        <label htmlFor="name">Nombre completo</label>
+                                        <input type="text" id="name" className="form-control" required />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="password">Contraseña</label>
-                                        <input type="password" className="form-control" id="password" required />
+                                        <label htmlFor="email">Correo electrónico</label>
+                                        <input type="email" id="email" className="form-control" required />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="amount">Monto</label>
-                                        <input type="number" className="form-control" id="amount" value={total.toFixed(2)} readOnly />
+                                        <label htmlFor="address">Dirección</label>
+                                        <input type="text" id="address" className="form-control" required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="creditCard">Número de tarjeta de crédito</label>
+                                        <input type="text" id="creditCard" className="form-control" required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="expiryDate">Fecha de expiración</label>
+                                        <input type="text" id="expiryDate" className="form-control" placeholder="MM/AA" required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="cvv">CVV</label>
+                                        <input type="text" id="cvv" className="form-control" required />
                                     </div>
                                     <button type="submit" className="btn btn-primary">Pagar</button>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal de Confirmación de Compra */}
+            {showInvoiceModal && (
+                <div className="modal-overlay">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Compra Exitosa</h5>
+                                <button onClick={handleInvoiceClose} className="close-button">
+                                    &times;
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <h6>Gracias por tu compra. Aquí está tu factura:</h6>
+                                <ul>
+                                    {cart.map((product) => (
+                                        <li key={product.id}>
+                                            {product.name} x {product.quantity} - ${product.price.toFixed(2)}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="invoice-total">
+                                    <strong>Total Pagado: </strong>${total.toFixed(2)}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -108,4 +153,4 @@ const Cart: React.FC = () => {
     );
 };
 
-export default Cart
+export default Cart;

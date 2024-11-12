@@ -73,12 +73,18 @@ const Models: React.FC = () => {
             setAños([]);
             // Obtenemos los modelos y años para la marca seleccionada
             const response = await new ProductApi().getModelsAndYearsByMarca(selectedMarca);
-            console.log("Resposne modelAndYears", response)
-            // Asumiendo que cada elemento en `response` tiene la estructura [[modelo], [año]]
-            const uniqueModelos = Array.from(new Set(response.modelos))
-            console.log("uniqueModelos", uniqueModelos)
-            const uniqueAños = Array.from(new Set(response.años))
-            console.log("uniqueAños", uniqueAños)
+            console.log(`Respuesta models and years`, response);
+    
+            // Desestructuramos la respuesta
+            const { modelos, años } = response;
+    
+            // Eliminamos duplicados
+            const uniqueModelos = Array.from(new Set(modelos));
+            console.log("uniqueModelos", uniqueModelos);
+    
+            const uniqueAños = Array.from(new Set(años));
+            console.log("uniqueAños", uniqueAños);
+    
             setModelos(uniqueModelos);
             setAños(uniqueAños);
         } catch (error) {
@@ -87,6 +93,7 @@ const Models: React.FC = () => {
             setAños([]);
         }
     }
+    
         
 
     useEffect(() => {

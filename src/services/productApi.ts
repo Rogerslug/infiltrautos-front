@@ -57,19 +57,19 @@ export default class ProductApi {
             return []; // Retornamos un array vacío en caso de error
         } 
     }
-
-    async getModelsAndYearsByMarca(marca: string): Promise<{ modelos: any[], años: any[] }> {
+    async getModelsAndYearsByMarca(marca: string): Promise<{ modelos: string[], años: number[] }> {
         try {
             const response = await axios.post(`${API_URL}/querySql`, {
                 query: `SELECT DISTINCT modelo, año FROM Autos WHERE marca = '${marca}'`
             });
-            //console.log("Modelos y años obtenidos desde la base de datos:", response.data.data);
-            return response.data.data as { modelos: any[][], años: any[][] }; // Forzamos el tipo
+            console.log("Modelos y años obtenidos desde la base de datos:", response.data.data);
+            // Asumimos que response.data.data es un array de objetos con propiedades modelo y año
+            const modelos = response.data.map((item: any) => item.modelo);
+            const años = response.data.map((item: any) => item.año);
+            return { modelos, años };
         } catch (error) {
             console.log("Error al obtener los modelos y años:", error);
             return { modelos: [], años: [] }; // Retornamos un objeto vacío en caso de error
         }
     }
-
-}
-    
+}    

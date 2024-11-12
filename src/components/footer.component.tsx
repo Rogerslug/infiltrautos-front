@@ -9,20 +9,10 @@ const Footer: React.FC = () => {
                     <p>© 2024 INFILTRAUTOS. Todos los derechos reservados.</p>
                 </div>
                 <div className="footer-section">
-                    <a href="/contacto">Contacto</a>
-                    <a href="/negocios">Negocios</a>
+                    <a href="/m&v">Misión y valores</a>
                 </div>
                 <div className="footer-selection social-icons">
                     <a href="#"><i className="fab fa-cc-visa"></i></a>
-                    <a href="#"><i className="fab fa-cc-mastercard"></i></a>
-                    <a href="#"><i className="fab fa-cc-amex"></i></a>
-                </div>
-                <div className="footer-section">
-                    <p>¡Enterate de nuestras novedades!</p>
-                    <form className= "suscribe-form">
-                        <input type="email" placeholder="Correo electrónico" />
-                        <button type="submit">Suscribirse</button>
-                    </form>
                 </div>
             </div>
         </footer>

@@ -9,6 +9,7 @@ import Catalog from './components/catalog.component'
 import Models from './components/models.component'
 import ShowDetails from './components/showDetails.component'
 import Cart from './components/cart.component'
+import MyV from './components/mv.componen'
 import { CartProvider } from './context/CartContext'
 import { PayPalScriptProvider } from "@paypal/react-paypal-js"
 
@@ -34,6 +35,7 @@ function App() {
             <Header />
             <Routes>
               <Route path="/" element={<MainContent />} />
+              <Route path="/m&v" element={<MyV />} />
               <Route path="/catalogo" element={<Catalog />} />
               <Route path="/modelos" element={<Models />} />
               <Route path="/product/:id" element={<ShowDetails />} />
