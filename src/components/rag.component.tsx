@@ -56,7 +56,7 @@ const RAG = ({ ShowDetails }: any) => { // Cambiado 'showDetails' a 'product'
     setLoading(true)
     setError("")
 
-    const message = "La siguiente información la está viendo el usuario actualmente: Nombre: " + ShowDetails.name + ", Descripción: " + ShowDetails.description + ", Precio: " + ShowDetails.price  + "mxn, Tipo: " + ShowDetails.type + ", Material: " + ShowDetails.material + " Stock: " + ShowDetails.stock
+    const message = "Da una recomendación personalizada al usuario del e-commerce basado en la siguiente información: Nombre: " + ShowDetails.name + ", Descripción: " + ShowDetails.description + ", Precio: " + ShowDetails.price  + "mxn, Tipo: " + ShowDetails.type + ", Material: " + ShowDetails.material + " Stock: " + ShowDetails.stock
 
     const requestBody = {
       "message": message,

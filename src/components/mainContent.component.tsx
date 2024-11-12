@@ -16,7 +16,9 @@ const MainContent: React.FC = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
+                console.log("Ejecutando la obtención de los filtros con getAllFilters")
                 const response = await new ProductApi().getAllFilters()
+                console.log("Response desde getAllFilters en mainContent:", response)
                 const transformedProducts = response.map((item: any[]) => ({
                     id: item[0],
                     name: item[1],

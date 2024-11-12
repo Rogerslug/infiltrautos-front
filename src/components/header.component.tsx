@@ -13,12 +13,9 @@ const Header: React.FC = () => {
       </div>
       <nav className="nav">
         <a href="/catalogo">Catálogo</a>
-        <a href="/categorias">Categorías</a>
         <a href="/modelos">Modelos</a>
       </nav>
       <div className="search-cart">
-        <input type="text" placeholder="Buscar..." />
-        <button className="search-button">🔍</button>
         <a href="/carrito" className="cart-link">🛒 Carrito de compra</a>
       </div>
     </header>

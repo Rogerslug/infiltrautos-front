@@ -107,15 +107,12 @@
   }
 }
 
-
+/* Contenido principal */
 .main-content {
   background-color: #fffcd9;
-  /* Añadimos min-height para que el footer se mantenga en la parte inferior */
   min-height: calc(100vh - 100px); /* Ajusta según el tamaño del header y footer */
   box-sizing: border-box;
 }
-
-
 
 .breadcrumb {
   display: flex;
@@ -665,20 +662,15 @@
   cursor: pointer;
 }
 
-.modal-body {
-  padding-top: 1rem;
-}
-
-/* Estilos para el formulario de PayPal en el modal */
-.modal-body {
+.modal-body { /* Contenido del modal */
     padding: 20px; /* Espaciado interno del modal */
 }
 
-.form-group {
+.form-group { /* Grupo de formulario */
     margin-bottom: 15px; /* Espaciado entre los grupos de formulario */
 }
 
-.form-control {
+.form-control { /* Estilo del campo de entrada */
     width: 100%; /* Asegura que los campos de entrada ocupen todo el ancho */
     padding: 10px; /* Espaciado interno de los campos de entrada */
     border: 1px solid #ffad32; /* Borde del campo de entrada */
@@ -686,7 +678,7 @@
     font-size: 16px; /* Tamaño de fuente */
 }
 
-.btn-primary {
+.btn-primary { /* Estilo del botón */
     background-color: #ffad32; /* Color de fondo del botón */
     color: white; /* Color del texto del botón */
     border: none; /* Sin borde */
@@ -696,12 +688,12 @@
     font-size: 16px; /* Tamaño de fuente del botón */
 }
 
-.btn-primary:hover {
+.btn-primary:hover { /* Estilo del botón al pasar el mouse */
     background-color: #f4a261; /* Color de fondo al pasar el mouse */
 }
 
 /* Estilos para el modal */
-.modal-overlay {
+.modal-overlay { /* Fondo del modal */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -714,7 +706,7 @@
     z-index: 1050;
 }
 
-.modal-dialog {
+.modal-dialog { /* Contenido del modal */
     background-color: #fff;
     border-radius: 8px;
     max-width: 500px;
@@ -723,24 +715,24 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.modal-header {
+.modal-header { /* Cabecera del modal */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.modal-title {
+.modal-title { /* Título del modal */
     font-size: 1.25rem;
     font-weight: bold;
 }
 
-.close-button {
+.close-button { /* Botón para cerrar el modal */
     background: none;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
 }
 
-.modal-body {
+.modal-body { /* Contenido del modal */
     padding-top: 1rem;
 }
